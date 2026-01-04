@@ -1,2 +1,0 @@
-origin	https://github.com/01Freebird10/Smart-trip (fetch)
-origin	https://github.com/01Freebird10/Smart-trip (push)

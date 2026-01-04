@@ -1,5 +1,0 @@
-5eb7571 Final CI stability fix: Updated Flutter CI, matched Redis DB, and adjusted dependencies
-72a4432 Fix CI/CD: Updated Flutter version and added Redis wait script
-0070b75 Fix CI/CD: Added Redis service and environment support
-a73cf83 Complete testing and production-ready requirements
-8e80946 ready to go

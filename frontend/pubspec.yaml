@@ -36,22 +36,22 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_bloc: ^9.1.1
   bloc: ^9.1.0
-  dio: ^5.9.0
+  dio: ^5.7.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   path_provider: ^2.1.5
-  intl: ^0.20.2
+  intl: ^0.19.0
   json_annotation: ^4.9.0
   cached_network_image: ^3.4.1
-  connectivity_plus: ^6.1.1
+  connectivity_plus: ^6.0.3
   skeletonizer: ^2.1.2
-  flutter_spinkit: ^5.2.2
-  google_fonts: ^6.3.3
-  web_socket_channel: ^3.0.1
-  palette_generator: ^0.3.3+7
-  file_picker: ^10.3.8
+  flutter_spinkit: ^5.2.1
+  google_fonts: ^6.2.1
+  web_socket_channel: ^3.0.0
+  palette_generator: ^0.3.3+4
+  file_picker: ^8.0.0
   flutter_colorpicker: ^1.1.0
-  url_launcher: ^6.3.2
+  url_launcher: 6.3.0
   font_awesome_flutter: ^10.6.0
 
 dev_dependencies:
