@@ -1,0 +1,19 @@
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   .github/workflows/backend.yml
+	new file:   branch.txt
+	modified:   frontend/pubspec.yaml
+	new file:   frontend/test_results.txt
+	new file:   frontend/test_results_utf8.txt
+	new file:   log_check.txt
+	new file:   log_verify.txt
+	new file:   remote.txt
+	new file:   status_check.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	status_staged.txt
+
