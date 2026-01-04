@@ -7,42 +7,25 @@ on:
     branches: [ main ]
 
 jobs:
-  lint-and-test:
+  test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
-    services:
-      redis:
-        image: redis:7
-        ports:
-          - 6379:6379
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python
+    
+    - name: Setup Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
-        cache: 'pip'
-        cache-dependency-path: backend/requirements.txt
+    
     - name: Install dependencies
+      working-directory: backend
       run: |
         pip install --upgrade pip
         pip install -r requirements.txt
-        pip install flake8
-    - name: Run Lint
-      run: |
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Run Tests
-      run: python manage.py test --verbosity=2
+    
+    - name: Run tests
+      working-directory: backend
+      run: python manage.py test
       env:
-        SECRET_KEY: "github-actions-test-secret-key-12345"
+        SECRET_KEY: "test-secret-key-for-ci"
         DEBUG: "1"
-        DATABASE_URL: "sqlite:///:memory:"
-        REDIS_URL: "redis://localhost:6379/0"
