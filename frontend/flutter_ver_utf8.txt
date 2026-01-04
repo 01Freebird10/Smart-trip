@@ -1,0 +1,4 @@
+﻿Flutter 3.38.5 ΓÇó channel stable ΓÇó https://github.com/flutter/flutter.git
+Framework ΓÇó revision f6ff1529fd (3 weeks ago) ΓÇó 2025-12-11 11:50:07 -0500
+Engine ΓÇó hash c108a94d7a8273e112339e6c6833daa06e723a54 (revision 1527ae0ec5) (23 days ago) ΓÇó 2025-12-11 15:04:31.000Z
+Tools ΓÇó Dart 3.10.4 ΓÇó DevTools 2.51.1
