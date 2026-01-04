@@ -1,0 +1,29 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  analyze-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.19.0'
+        channel: 'stable'
+    - name: Install dependencies
+      run: |
+        cd frontend
+        flutter pub get
+    - name: Static Analysis
+      run: |
+        cd frontend
+        flutter analyze
+    - name: Run Tests
+      run: |
+        cd frontend
+        flutter test

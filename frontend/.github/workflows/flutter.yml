@@ -1,0 +1,32 @@
+name: Flutter CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.16.0'
+    - name: Install dependencies
+      run: |
+        cd frontend
+        flutter pub get
+    - name: Run Static Analysis
+      run: |
+        cd frontend
+        flutter analyze
+    - name: Run Tests
+      run: |
+        cd frontend
+        flutter test
+    - name: Build APK
+      run: |
+        cd frontend
+        flutter build apk --debug

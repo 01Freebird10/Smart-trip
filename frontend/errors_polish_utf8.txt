@@ -1,0 +1,41 @@
+﻿Analyzing frontend...                                           
+
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\landing_screen.dart:72:53 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\landing_screen.dart:208:29 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\login_screen.dart:46:37 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\login_screen.dart:154:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\profile_screen.dart:49:51 - deprecated_member_use
+  error - The named parameter 'body' is required, but there's no corresponding argument - lib\screens\trip_detail_screen.dart:30:13 - missing_required_argument
+  error - Undefined name 'body' - lib\screens\trip_detail_screen.dart:74:7 - undefined_identifier
+  error - Expected to find ')' - lib\screens\trip_detail_screen.dart:74:11 - expected_token
+  error - Expected to find ']' - lib\screens\trip_detail_screen.dart:74:11 - expected_token
+  error - Expected to find ')' - lib\screens\trip_detail_screen.dart:78:6 - expected_token
+warning - The declaration '_buildDesktopBody' isn't referenced - lib\screens\trip_detail_screen.dart:81:10 - unused_element
+warning - The declaration '_buildMobileBody' isn't referenced - lib\screens\trip_detail_screen.dart:115:10 - unused_element
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\trip_detail_screen.dart:199:66 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\widgets\glass_container.dart:29:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\widgets\glass_container.dart:32:35 - deprecated_member_use
+
+flutter : 15 issues 
+found. (ran in 1.9s)
+At line:1 char:1
++ flutter analyze 
+--no-pub > 
+errors_polish.txt 
+2>&1; Get-Content 
+errors ...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (15 issu   
+ es found. (ran i    
+n 1.9s):String)     
+[], RemoteExcept    
+ion
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+

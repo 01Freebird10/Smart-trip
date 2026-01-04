@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.framework
+ios/Flutter/App.framework
+android/local.properties
+android/key.properties
+android/app/src/main/res/drawable/launch_background.xml
+*.lock
+*.js
+*.exe
+
+# Git/VS Code
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+.env
+auth_token

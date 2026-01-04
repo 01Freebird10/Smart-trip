@@ -1,0 +1,39 @@
+﻿Analyzing frontend...                                           
+
+warning - Unused import: 'screens/login_screen.dart' - lib\main.dart:15:8 - unused_import
+warning - Unused import: '../models/trip.dart' - lib\models\itinerary_item.dart:3:8 - unused_import
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\screens\home_screen.dart:5:8 - unused_import
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\landing_screen.dart:60:51 - deprecated_member_use
+warning - The value of the local variable 'isDesktop' isn't used - lib\screens\landing_screen.dart:166:11 - unused_local_variable
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\landing_screen.dart:196:29 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\login_screen.dart:46:37 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\login_screen.dart:154:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\profile_screen.dart:49:51 - deprecated_member_use
+warning - Duplicate import - lib\screens\trip_detail_screen.dart:3:8 - duplicate_import
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\trip_detail_screen.dart:191:66 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\widgets\glass_container.dart:29:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\widgets\glass_container.dart:32:35 - deprecated_member_use
+
+flutter : 13 issues 
+found. (ran in 2.1s)
+At line:1 char:1
++ flutter analyze 
+--no-pub > 
+errors_web.txt 2>&1; 
+Get-Content 
+errors_we ...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (13 issu   
+ es found. (ran i    
+n 2.1s):String)     
+[], RemoteExcept    
+ion
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+
