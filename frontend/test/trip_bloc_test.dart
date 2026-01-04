@@ -21,7 +21,7 @@ void main() {
         destination: 'Paris',
         startDate: DateTime.now(),
         endDate: DateTime.now().add(const Duration(days: 5)),
-        ownerId: 1,
+        createdAt: DateTime.now(),
       );
       final state = TripsLoaded([trip]);
       expect(state.trips.length, 1);
@@ -41,9 +41,17 @@ void main() {
     });
 
     test('CreateTrip event holds trip data', () {
-      final event = CreateTrip('Paris Trip', 'Paris', DateTime.now(), DateTime.now().add(const Duration(days: 5)));
-      expect(event.title, 'Paris Trip');
-      expect(event.destination, 'Paris');
+      final trip = Trip(
+        id: 0,
+        title: 'Paris Trip',
+        destination: 'Paris',
+        startDate: DateTime.now(),
+        endDate: DateTime.now().add(const Duration(days: 5)),
+        createdAt: DateTime.now(),
+      );
+      final event = CreateTrip(trip);
+      expect(event.trip.title, 'Paris Trip');
+      expect(event.trip.destination, 'Paris');
     });
   });
 
@@ -55,7 +63,7 @@ void main() {
         destination: 'Test City',
         startDate: DateTime(2024, 1, 1),
         endDate: DateTime(2024, 1, 5),
-        ownerId: 1,
+        createdAt: DateTime.now(),
       );
       expect(trip.title, 'Test Trip');
       expect(trip.destination, 'Test City');
