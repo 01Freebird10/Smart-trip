@@ -1,0 +1,25 @@
+﻿Resolving dependencies...
+flutter : Because bloc_test ^9.1.1 depends on 
+bloc ^8.1.1 and frontend depends on bloc 
+^9.1.0, bloc_test ^9.1.1 is forbidden.
+At line:1 char:14
++ ... d frontend; flutter test 
+test/auth_bloc_test.dart > test_results.txt  
+...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( 
+   Because bloc_te...1 is forbidden.:String)  
+   [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandEr 
+   ror
+ 
+So, because frontend depends on bloc_test 
+^9.1.7, version solving failed.
+
+
+You can try the following suggestion to make 
+the pubspec resolve:
+* Try upgrading your constraint on bloc_test: 
+flutter pub add dev:bloc_test:^10.0.0
+Failed to update packages.
