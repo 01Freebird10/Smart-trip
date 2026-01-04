@@ -40,13 +40,9 @@ jobs:
     - name: Run Tests
       run: |
         cd backend
-        # Wait for redis
-        while ! nc -z localhost 6379; do
-          sleep 1
-        done
         python manage.py test
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         DEBUG: "1"
         DATABASE_URL: "sqlite:///:memory:"
-        REDIS_URL: "redis://localhost:6379/0"
+        REDIS_URL: "redis://localhost:6379/1"
