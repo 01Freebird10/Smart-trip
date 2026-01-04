@@ -9,9 +9,12 @@ on:
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
     services:
       redis:
-        image: redis
+        image: redis:7
         ports:
           - 6379:6379
         options: >-
@@ -20,29 +23,26 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.11'
+        cache: 'pip'
+        cache-dependency-path: backend/requirements.txt
     - name: Install dependencies
       run: |
-        cd backend
+        pip install --upgrade pip
         pip install -r requirements.txt
         pip install flake8
     - name: Run Lint
       run: |
-        cd backend
-        # Stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Run Tests
-      run: |
-        cd backend
-        python manage.py test
+      run: python manage.py test --verbosity=2
       env:
-        SECRET_KEY: "ci-test-key-123"
+        SECRET_KEY: "github-actions-test-secret-key-12345"
         DEBUG: "1"
         DATABASE_URL: "sqlite:///:memory:"
         REDIS_URL: "redis://localhost:6379/0"
