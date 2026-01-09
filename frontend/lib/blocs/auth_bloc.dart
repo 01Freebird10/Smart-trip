@@ -9,6 +9,10 @@ class LoginRequested extends AuthEvent {
   final String password;
   LoginRequested(this.email, this.password);
 }
+class GoogleLoginRequested extends AuthEvent {
+  final String accessToken;
+  GoogleLoginRequested(this.accessToken);
+}
 class UpdateProfileRequested extends AuthEvent {
   final String firstName;
   final String lastName;
@@ -85,6 +89,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
       try {
         await authRepository.login(event.email, event.password);
+        final user = await authRepository.getProfile();
+        emit(Authenticated(user));
+      } catch (e) {
+        emit(AuthError(_handleError(e)));
+      }
+    });
+
+    on<GoogleLoginRequested>((event, emit) async {
+      emit(AuthLoading());
+      try {
+        await authRepository.googleLogin(event.accessToken);
         final user = await authRepository.getProfile();
         emit(Authenticated(user));
       } catch (e) {

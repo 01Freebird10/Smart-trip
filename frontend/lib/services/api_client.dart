@@ -4,7 +4,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class ApiClient {
   late Dio dio;
-  final String baseUrl = "http://127.0.0.1:8000/api/";
+  final String baseUrl = kReleaseMode 
+      ? "https://iniyan.pythonanywhere.com/api/" 
+      : "http://127.0.0.1:8000/api/";
   static const String _tokenKey = 'auth_token';
   final Box _settingsBox;
   VoidCallback? onUnauthorized;

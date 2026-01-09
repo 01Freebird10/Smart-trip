@@ -1,0 +1,102 @@
+DEPLOYMENT GUIDE FOR SMART TRIP PLANNER
+=======================================
+
+This guide explains how to deploy your Django Backend and Flutter Frontend to Render.com for free.
+
+PREREQUISITE:
+-------------
+1. Create a file named `build.sh` in your `backend/` folder locally with the following content:
+
+   #!/usr/bin/env bash
+   # Exit on error
+   set -o errexit
+   # Install dependencies
+   pip install -r backend/requirements.txt
+   # Convert static asset files
+   python backend/manage.py collectstatic --no-input
+   # Apply migrations
+   python backend/manage.py migrate
+
+2. Push this new file to GitHub:
+   git add backend/build.sh
+   git commit -m "Add build script"
+   git push origin main
+
+
+STEP 1: DATABASE (PostgreSQL)
+-----------------------------
+1. Log in to Render.com.
+2. Click "New +" -> "PostgreSQL".
+3. Name: `smart-trip-db`
+4. Region: Choose one close to you (e.g., Singapore or Frankfurt).
+5. Plan: Select "Free".
+6. Click "Create Database".
+7. Wait for it to be created.
+8. Copy the "Internal Database URL" (starts with `postgres://...`). You will need this for the Backend.
+
+
+STEP 2: REDIS (Optional but recommended for Channels/Chat)
+----------------------------------------------------------
+1. Click "New +" -> "Redis".
+2. Name: `smart-trip-redis`
+3. Plan: Select "Free".
+4. Click "Create Redis".
+5. Copy the "Internal Redis URL" (starts with `redis://...`).
+
+
+STEP 3: BACKEND DEPLOYMENT (Web Service)
+----------------------------------------
+1. Click "New +" -> "Web Service".
+2. Connect your GitHub repository (`01Freebird10/Smart-trip`).
+3. Settings:
+   - Name: `smart-trip-backend`
+   - Region: Same as your Database.
+   - Branch: `main`
+   - Root Directory: `.` (leave empty or dot)
+   - Runtime: `Python 3`
+   - Build Command: `chmod +x backend/build.sh && ./backend/build.sh`
+   - Start Command: `daphne -b 0.0.0.0 -p $PORT config.asgi:application`
+     (Note: We use `daphne` because you are using Django Channels for chat)
+
+4. Environment Variables (Click "Advanced"):
+   Add the following keys and values:
+   - `PYTHON_VERSION`: `3.11.9`
+   - `SECRET_KEY`: (Generate a random string or use a complex password)
+   - `DEBUG`: `False`
+   - `DATABASE_URL`: (Paste the "Internal Database URL" from Step 1)
+   - `REDIS_URL`: (Paste the "Internal Redis URL" from Step 2)
+   - `DJANGO_SETTINGS_MODULE`: `config.settings`
+
+5. Click "Create Web Service".
+6. Wait for deployment to finish. It needs to say "Live".
+7. Copy your backend URL (e.g., `https://smart-trip-backend.onrender.com`).
+
+
+STEP 4: FRONTEND DEPLOYMENT (Static Site)
+-----------------------------------------
+1. Click "New +" -> "Static Site".
+2. Connect the same GitHub repository.
+3. Settings:
+   - Name: `smart-trip-frontend`
+   - Branch: `main`
+   - Root Directory: `frontend`
+   - Build Command: `flutter build web --release`
+   - Publish Directory: `build/web`
+
+4. Environment Variables:
+   - Render does not inject env vars into static sites at runtime easily.
+   - You must ensure your Flutter app points to the Backend URL.
+   
+   IMPORTANT: Before deploying frontend, you might need to update your API_URL in the code to point to the new Backend URL from Step 3, OR use a configurable setup.
+   
+   If your code has the base URL hardcoded as localhost, update `frontend/lib/services/api_service.dart` (or similar) to use your new Render Backend URL.
+
+5. Click "Create Static Site".
+6. Wait for deployment.
+
+
+STEP 5: VERIFICATION
+--------------------
+1. Open the Frontend URL provided by Render.
+2. Try to Register/Login.
+3. If it fails, check the "Logs" tab in the Backend Web Service on Render dashboard.

@@ -1,0 +1,78 @@
+STEP-BY-STEP: VERCEL (Frontend) + PYTHONANYWHERE (Backend)
+==========================================================
+
+This guide requires NO credit card.
+
+PART 1: BACKEND (PythonAnywhere)
+--------------------------------
+1.  **Sign Up**: Go to https://www.pythonanywhere.com/ and create a "Beginner" account.
+2.  **Open Console**: Go to the **"Consoles"** tab and click **"Bash"**.
+3.  **Clone & Setup**: Type these commands in the black terminal:
+    
+    git clone https://github.com/01Freebird10/Smart-trip.git
+    cd Smart-trip
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install -r backend/requirements.txt
+    python backend/manage.py migrate
+    python backend/manage.py collectstatic --no-input
+
+4.  **Create Web App**:
+    - Go to **"Web"** tab.
+    - Click **"Add a new web app"** -> Next -> **"Manual configuration"** -> **"Python 3.10"** -> Next.
+5.  **Configure Paths**:
+    - Scroll to **"Virtualenv"** and enter: `/home/yourusername/Smart-trip/venv`
+    - Scroll to **"Code"**:
+      - Source code: `/home/yourusername/Smart-trip`
+      - Working directory: `/home/yourusername/Smart-trip`
+      (Replace `yourusername` with your actual account name).
+6.  **WSGI Config**:
+    - Click the **WSGI configuration file** link.
+    - Delete everything and paste this:
+
+      import os
+      import sys
+      path = '/home/yourusername/Smart-trip'  # <-- CHANGE THIS to your username
+      if path not in sys.path:
+          sys.path.append(path)
+      sys.path.append(os.path.join(path, 'backend'))
+      os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings'
+      from django.core.wsgi import get_wsgi_application
+      application = get_wsgi_application()
+
+    - Click **Save**.
+7.  **Reload**: Go back to "Web" tab and click **"Reload"**.
+    - **COPY YOUR BACKEND URL**: `http://yourusername.pythonanywhere.com`
+
+PART 2: CONNECT FRONTEND TO BACKEND
+-----------------------------------
+1.  Open `frontend/lib/services/api_client.dart` in your VS Code.
+2.  Find the `baseUrl` line.
+3.  Change it to your PythonAnywhere URL:
+    `final String baseUrl = "http://yourusername.pythonanywhere.com/api/";`
+4.  Save the file.
+
+PART 3: FRONTEND (Vercel)
+-------------------------
+We will use the Vercel CLI to deploy because it is easier than configuring Flutter builds on Vercel servers.
+
+1.  **Open Terminal** in "x:\smart trip planner".
+2.  **Build Flutter Web**:
+    cd frontend
+    flutter build web --release --renderer html
+
+3.  **Deploy with Vercel CLI**:
+    cd build/web
+    npx vercel deploy --prod
+
+    - It will ask you to **Log In** (press Enter, it opens browser).
+    - **"Set up and deploy?"** -> Type `y` and Enter.
+    - **"Which scope?"** -> Press Enter (your name).
+    - **"Link to existing project?"** -> Type `n` and Enter.
+    - **"Project Name?"** -> Type `smart-trip-frontend` and Enter.
+    - **"In which directory?"** -> Press Enter (default is `.`).
+
+4.  Wait for upload.
+5.  It will give you a **Production: https://smart-trip-frontend-xyz.vercel.app** URL.
+
+That is your live site!

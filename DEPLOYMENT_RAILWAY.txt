@@ -1,0 +1,74 @@
+DEPLOYMENT GUIDE: RAILWAY + VERCEL
+====================================
+
+This guide uses Railway for the Backend (easy, trial credits) and Vercel for the Frontend (free).
+
+PART 1: BACKEND (Railway)
+-------------------------
+1.  **Sign Up**: Go to https://railway.app/ and "Login with GitHub".
+2.  **New Project**: Click **"New Project"** -> **"Deploy from GitHub repo"**.
+3.  **Select Repo**: Choose `Smart-trip`.
+4.  **Configure**:
+    - Click on the repo card that appears.
+    - Go to **"Settings"**.
+    - Scroll down to **"Root Directory"**.
+    - Enter: `backend`
+    - Click **Save**. (This may trigger a failed build, don't worry).
+
+5.  **Add Database**:
+    - Right-click on the background area (empty space) -> **"Database"** -> **"PostgreSQL"**.
+    - Wait for it to pull up.
+
+6.  **Add Redis**:
+    - Right-click on empty space -> **"Database"** -> **"Redis"**.
+
+7.  **Environment Variables**:
+    - Click on your **Smart-trip** service card.
+    - Go to **"Variables"** tab.
+    - Add these variables:
+      - `SECRET_KEY`: (Any random string)
+      - `DEBUG`: `False`
+      - `ALLOWED_HOSTS`: `*` (or your domain)
+      - `CSRF_TRUSTED_ORIGINS`: `https://*.up.railway.app`
+    - **Note:** `DATABASE_URL` and `REDIS_URL` are auto-injected by Railway!
+
+8.  **Build & Deploy**:
+    - The deployment should restart automatically after saving variables.
+    - Go to **"Settings"** -> **"Networking"** -> **"Generate Domain"**.
+    - It will give you a public URL (e.g., `smart-trip-production.up.railway.app`).
+    - **COPY THIS URL**.
+
+PART 2: CONNECT FRONTEND
+------------------------
+1.  Locally, open `frontend/lib/services/api_client.dart`.
+2.  Update `baseUrl`:
+    `final String baseUrl = "https://<YOUR-RAILWAY-URL>/api/";`
+    (Replace `<YOUR-RAILWAY-URL>` with the one you copied).
+3.  Run:
+    `git add frontend/lib/services/api_client.dart`
+    `git commit -m "Update API URL"`
+    `git push origin main`
+
+PART 3: FRONTEND (Vercel)
+-------------------------
+1.  Go to https://vercel.com/ and Login with GitHub.
+2.  Click **"Add New..."** -> **"Project"**.
+3.  Import `Smart-trip`.
+4.  **Root Directory**:
+    - Click "Edit".
+    - Select `frontend`.
+5.  **Build Settings**:
+    - Framework Preset: **Other**.
+    - Build Command: `flutter build web --release`
+    - Output Directory: `build/web`
+6.  **Environment Variables**:
+    - Vercel doesn't have Flutter installed by default.
+    - **EASIER METHOD (CLI)**:
+      Since we already have the `vercel.json` config I made earlier:
+      1. Open Terminal in `frontend` folder.
+      2. Run: `npx verceldeploy --prod`
+      3. Follow prompts.
+
+      **OR (Web UI with Override)**:
+      - Since installing Flutter on Vercel takes time, I recommend the "Manual Drag & Drop" or "CLI" method mentioned in the previous guides.
+      - **Drag & Drop to Netlify** (from previous guide) is still the easiest for Frontend.

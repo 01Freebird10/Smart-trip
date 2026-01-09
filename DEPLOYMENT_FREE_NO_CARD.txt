@@ -1,0 +1,81 @@
+NO-CARD FREE DEPLOYMENT GUIDE
+=============================
+
+This guide uses PythonAnywhere (Backend) and Netlify (Frontend). Neither requires a credit card.
+
+PART 1: BACKEND (PythonAnywhere)
+--------------------------------
+1. Go to https://www.pythonanywhere.com/ and sign up for a "Beginner" (Free) account.
+2. Go to the **"Consoles"** tab and click **"Bash"**.
+   - A black terminal window will open.
+3. In the terminal, type these commands (one by one):
+   
+   git clone https://github.com/01Freebird10/Smart-trip.git
+   cd Smart-trip
+   python3 -m venv venv
+   source venv/bin/activate
+   pip install -r backend/requirements.txt
+   python backend/manage.py migrate
+   python backend/manage.py collectstatic --no-input
+
+4. Go to the **"Web"** tab (click the menu icon top right).
+5. Click **"Add a new web app"**.
+   - Click "Next".
+   - Select **"Manual configuration (including virtualenvs)"**. (NOT Django - manual is better here).
+   - Select **"Python 3.10"** (or latest available).
+   - Click "Next".
+
+6. Scroll down to **"Virtualenv"**:
+   - Enter path: `/home/yourusername/Smart-trip/venv` (Replace 'yourusername' with your actual PythonAnywhere username).
+
+7. Scroll up to **"Code"**:
+   - Source code: `/home/yourusername/Smart-trip`
+   - Working directory: `/home/yourusername/Smart-trip`
+
+8. Click on **"WSGI configuration file"** link.
+   - Delete EVERYTHING in that file.
+   - Paste ONLY this:
+
+     import os
+     import sys
+     path = '/home/yourusername/Smart-trip'  # <--- Update valid username
+     if path not in sys.path:
+         sys.path.append(path)
+     
+     # Point to the backend folder where config is
+     sys.path.append(os.path.join(path, 'backend'))
+
+     os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings'
+     from django.core.wsgi import get_wsgi_application
+     application = get_wsgi_application()
+
+   - Click **Save**.
+
+9. Go back to **"Web"** tab and click the big green **"Reload"** button.
+   - Your backend is now live at `http://yourusername.pythonanywhere.com`.
+   - COPY THIS URL.
+
+
+PART 2: FRONTEND (Netlify Manual Deploy)
+----------------------------------------
+1. On your Local Computer (VS Code terminal), run:
+   cd frontend
+   flutter build web --release
+
+2. Go to https://www.netlify.com/ and sign up (Free).
+3. Log in. You will see a box saying **"Drag and drop your site output folder here"**.
+4. Open your file explorer to `x:\smart trip planner\frontend\build\web`.
+5. Drag the **`web`** folder and drop it onto the Netlify page.
+6. Deployment is instant.
+   - You will get a random URL like `https://funny-pika-123.netlify.app`.
+
+PART 3: CONNECTING THEM
+-----------------------
+1. Your frontend is pointing to localhost or the Render URL by default.
+2. You need to verify if the Backend matches the URL you copied in Part 1.
+3. If it doesn't, update `frontend/lib/services/api_client.dart`:
+   - Change the `baseUrl` to `http://yourusername.pythonanywhere.com/api/`.
+4. Run `flutter build web --release` again.
+5. Drag and drop the `web` folder to Netlify again (in the "Deploys" tab) to update it.
+
+Done!

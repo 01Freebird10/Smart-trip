@@ -28,6 +28,25 @@ class AuthRepository {
     }
   }
 
+  Future<Map<String, dynamic>> googleLogin(String accessToken) async {
+    try {
+      apiClient.clearToken();
+      final response = await apiClient.dio.post(
+        'users/google/', 
+        data: {
+          'access_token': accessToken,
+        },
+        options: Options(contentType: 'application/json'),
+      );
+      final data = response.data;
+      // dj_rest_auth might return 'key' instead of 'access' depending on config, but with SimpleJWT it returns 'access' and 'refresh'
+      apiClient.setToken(data['access_token'] ?? data['access'] ?? data['key']);
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<User> register(String email, String password, String firstName, String lastName) async {
     try {
       apiClient.clearToken();

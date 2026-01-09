@@ -334,9 +334,12 @@ class _LandingScreenState extends State<LandingScreen> {
         children: [
           Icon(icon, color: Colors.white38, size: 18),
           const SizedBox(width: 12),
-          Text(
-            text,
-            style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 14),
+          Flexible(
+            child: Text(
+              text,
+              style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 14),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),
